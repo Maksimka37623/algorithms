@@ -1,0 +1,93 @@
+#include <iostream>
+#include <ctime>
+#define N (10 * 12) % 51
+using namespace std;
+
+void random(int array[], int size)
+{
+    for (int i = 0; i < size; i++) {
+        array[i] = rand() % 481 + 240;
+    }
+}
+
+void printArray(int array[], int size)
+{
+    for (int i = 0; i < size; i++) {
+        cout << array[i] << " ";
+    }
+    cout << endl;
+}
+
+void SelectSort(int array[], int size)
+{
+    for (int i = 0; i < size - 1; i++)
+    {
+        for (int j = i + 1; j < size; j++)
+        {
+            if (array[j] < array[i])
+            {
+                swap(array[j], array[i]);
+            }
+        }
+        printArray(array, size);
+    }
+}
+
+void InsertionSort(int array[], int size)
+{
+    for (int i = 1; i < size; i++)
+    {
+        int key = array[i];
+        int j;
+        for (j = i - 1; j >= 0 && array[j] > key; j--)
+        {
+            array[j + 1] = array[j];
+        }
+        array[j + 1] = key;
+        printArray(array, size);
+    }
+}
+
+void BubbleSort(int array[], int size)
+{
+    for (int i = 0; i < size - 1; i++)
+    {
+        for (int j = size - 1; j > i; j--)
+        {
+            if (array[j] < array[j - 1])
+            {
+                swap(array[j], array[j - 1]);
+            }
+        }
+        printArray(array, size);
+    }
+}
+
+int main()
+{
+    srand(time(0));
+    int size = N;
+    int array[size];
+    int Method;
+    cout << "Enter the type of array sort (1 - selection, 2 - insertion, 3 - bubble): " << endl;
+    cin >> Method;
+    switch (Method) {
+    case 1:
+        random(array, size);
+        printArray(array, size);
+        SelectSort(array, size);
+        break;
+    case 2:
+        random(array, size);
+        printArray(array, size);
+        InsertionSort(array, size);
+        break;
+    case 3:
+        random(array, size);
+        printArray(array, size);
+        BubbleSort(array, size);
+        break;
+    default:
+        cout << "Incorrect option. Enter number from 1 to 3 for choosing type of array sort";
+    }
+}
